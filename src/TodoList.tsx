@@ -1,5 +1,4 @@
 import React, {FC} from 'react';
-import * as string_decoder from "string_decoder";
 import {TaskType} from "./App";
 
 type todolistPropsType = {
