@@ -70,6 +70,9 @@ const TodoList: FC<todolistPropsType> = (props) => {
     const setLocalTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         error && setError(false)
         setTitle(e.currentTarget.value)}
+    const removeToDoList = () => {
+        props.removeToDoList(props.toDoListId)
+    }
     const maxTitleLength = 20
     const recommendedTitleLength = 10
     const isAddTaskNotPossible = title.length === 0 || title.length > maxTitleLength || error
@@ -83,7 +86,9 @@ const TodoList: FC<todolistPropsType> = (props) => {
 
     return (
         <div className={toDoClasses}>
-            <h3>{props.title}</h3>
+            <h3>{props.title}
+                <button onClick={removeToDoList}>x</button>
+            </h3>
             <div>
                 <input
                     className={error ? "input-error" : ''}
