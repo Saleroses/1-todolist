@@ -105,7 +105,7 @@ const TodoList: FC<todolistPropsType> = (props) => {
                     size={"small"}
                     onClick={removeToDoList}
                     endIcon={<DeleteForeverIcon/>}
-                    sx={{ml: "10px"}}
+                    sx={{margin: "10px"}}
                 >
                     Del
                 </Button>

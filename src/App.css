@@ -1,26 +1,26 @@
-.App {
-  padding: 30px;
-  display: flex;
-}
+/*.App {*/
+/*  padding: 30px;*/
+/*  display: flex;*/
+/*}*/
 
-.App > div {
-  margin-right: 50px;
-}
+/*.App > div {*/
+/*  margin-right: 50px;*/
+/*}*/
 
 .todolist {
-  border: 2px solid blueviolet;
+  border: 1px solid blueviolet;
   border-radius: 5px;
   padding: 20px;
-  background-color: olivedrab;
-  width: 250px;
+  min-width: 300px;
+
 }
 
 .todolist-empty {
-  border: 3px solid red;
+  border: 1px solid red;
   border-radius: 5px;
   padding: 20px;
-  background-color: rgba(255,58,47,0.67);
-  width: 250px;
+  background-color: rgba(255,58,47,0.3);
+  min-width: 300px;
 }
 
 .task {
