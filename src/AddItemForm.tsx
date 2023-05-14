@@ -1,4 +1,6 @@
 import React, {ChangeEvent, FC, KeyboardEvent, useState} from 'react';
+import {IconButton, TextField} from "@mui/material";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -20,7 +22,7 @@ export const AddItemForm: FC<AddItemFormPropsType> = ({addItem}) => {
     const recommendedTitleLength = 10
     const isAddTaskNotPossible = title.length === 0 || title.length > maxTitleLength || error
     const longTitleWarning = (title.length > recommendedTitleLength && title.length < maxTitleLength) &&
-        <div>Title must be shorter</div>
+        <span>Title must be shorter</span>
     const onKeyDownAddTaskHandler = isAddTaskNotPossible
         ? undefined :
         (e: KeyboardEvent<HTMLInputElement>) => {
@@ -36,28 +38,26 @@ export const AddItemForm: FC<AddItemFormPropsType> = ({addItem}) => {
         }
         setTitle("")
     }
-    const longTitleError = title.length > maxTitleLength && <div>Please STOP</div>
-    const errorMessage = error && <div>Title is hard required!</div>
+    const longTitleError = title.length > maxTitleLength && <span>Please STOP</span>
+    const errorMessage = error && "Title is hard required!"
 
 
     return (
         <div>
-            <input
-                className={error ? "input-error" : ''}
+            <TextField
+                error={error}
+                size={"small"}
                 placeholder={"Enter task title"}
                 value={title}
                 onChange={setLocalTitleHandler}
                 onKeyDown={onKeyDownAddTaskHandler}
+                helperText={errorMessage || longTitleWarning || longTitleError}
             />
+            <IconButton disabled={isAddTaskNotPossible}
+                        onClick={addTaskHandler}>
+                <AddBoxIcon/>
+            </IconButton>
 
-            <button
-                disabled={isAddTaskNotPossible}
-                onClick={addTaskHandler}
-            >+
-            </button>
-            {longTitleWarning}
-            {longTitleError}
-            {errorMessage}
         </div>
     );
 };
