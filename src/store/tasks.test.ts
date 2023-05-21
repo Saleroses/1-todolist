@@ -1,4 +1,5 @@
 import {ActionType, div, mult, SalaryReducer, StateType, sub, sum} from "./tasks";
+import {type} from "os";
 
 test("sum", ()=>{
     //Данные для теста
@@ -26,7 +27,7 @@ test("multiply", ()=>{
 
 test("case sum of state", ()=>{
     const salary: StateType = 800
-    let action: ActionType
+
 
     expect(SalaryReducer(salary, {type: "SUM", n: 100})).toBe(900)
     expect(SalaryReducer(salary, {type: "SUB", n: 200})).toBe(600)
