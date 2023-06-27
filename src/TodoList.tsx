@@ -5,8 +5,7 @@ import {EditableSpan} from "./EditableSpan";
 import {Button, Checkbox, IconButton, List, ListItem, Typography} from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
-import {red} from "@mui/material/colors";
+
 
 type todolistPropsType = {
     title: string
