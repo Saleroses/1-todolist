@@ -30,6 +30,7 @@
 .task-done {
   font-weight: normal;
   text-decoration: line-through;
+  color: #90bb37;
 }
 
 .btn-active {
