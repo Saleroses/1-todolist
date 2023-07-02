@@ -28,7 +28,7 @@ export type TaskType = {
     isDone: boolean
 }
 
-const TodoList: FC<todolistPropsType> = (props) => {
+const  TodoList: FC<todolistPropsType> = (props) => {
 
 
     //const addTaskInputRef = useRef<any>(null)
