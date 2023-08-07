@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, FC, KeyboardEvent, memo, useState} from 'react';
 import {IconButton, TextField} from "@mui/material";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
@@ -8,7 +8,9 @@ type AddItemFormPropsType = {
     maxTitleLength: number
 }
 
-export const AddItemForm: FC<AddItemFormPropsType> = ({addItem}) => {
+export const AddItemForm: FC<AddItemFormPropsType> = memo(({addItem}) => {
+
+    console.log("AddItemForm")
 
     const [title, setTitle] = useState<string>("")
     const [error, setError] = useState<boolean>(false)
@@ -60,5 +62,5 @@ export const AddItemForm: FC<AddItemFormPropsType> = ({addItem}) => {
 
         </div>
     );
-};
+});
 

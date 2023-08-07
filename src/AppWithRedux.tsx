@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useCallback, useReducer, useState} from 'react';
 import './App.css';
 import TodoList, {TaskType} from "./TodoList";
 import {v1} from "uuid";
@@ -76,11 +76,11 @@ function AppWithRedux(): JSX.Element {
         //  или так dispatchToTasks(removeTaskAC(taskId, toDoListId))
 
     }
-    const addTask = (title: string, toDoListId: string) => {
+    const addTask = useCallback((title: string, toDoListId: string) => {
         ///////////// reducer
         const action = addTaskAC(title, toDoListId)
         dispatch(action)
-    }
+    }, [dispatch])
 
     const changeTasksStatus = (taskId: string, newIsDone: boolean, toDoListId: string) => {
         ///////////// reducer
@@ -98,11 +98,11 @@ function AppWithRedux(): JSX.Element {
         const action = ChangeTodoListTitleAC(toDoListId, newTitle)
         dispatch(action)
     }
-    const addTodoList = (title: string) => {
+    const addTodoList = useCallback((title: string) => {
         ///////////// reducer
         const action = AddTodoListAC(title)
         dispatch(action)
-    }
+    }, [dispatch])
 
     const changeTodoListFilter = (filter: FilterValuesType, toDoListId: string) => {
         ///////////// reducer
@@ -199,6 +199,6 @@ function AppWithRedux(): JSX.Element {
             </div>
         </ThemeProvider>
     );
-}
+};
 
 export default AppWithRedux;
