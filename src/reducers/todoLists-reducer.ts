@@ -23,9 +23,9 @@ export const todoListsReducer = (state = initialState , action: ActionType): Arr
 
         case "ADD-TODOLIST":
             const newTodo: toDoListType = {
-            id: action.todoListId,
-            title: action.title,
-            filter: "All",
+                id: action.todoListId,
+                title: action.title,
+                filter: "All",
         }
         return [...state, newTodo]
 

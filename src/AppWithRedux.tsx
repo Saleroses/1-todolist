@@ -69,67 +69,65 @@ function AppWithRedux(): JSX.Element {
     const [isDarkMode, setIsDarkMode] = useState(true)
 
 
-    const removeTask = (taskId: string, toDoListId: string) => {
+    const removeTask = useCallback((taskId: string, toDoListId: string) => {
         ///////////// reducer
         const action = removeTaskAC(taskId, toDoListId)
         dispatch(action)
         //  или так dispatchToTasks(removeTaskAC(taskId, toDoListId))
 
-    }
+    }, [dispatch])
     const addTask = useCallback((title: string, toDoListId: string) => {
         ///////////// reducer
         const action = addTaskAC(title, toDoListId)
         dispatch(action)
     }, [dispatch])
-
-    const changeTasksStatus = (taskId: string, newIsDone: boolean, toDoListId: string) => {
+    const changeTasksStatus = useCallback((taskId: string, newIsDone: boolean, toDoListId: string) => {
         ///////////// reducer
         const action = changeTaskStatusAC(toDoListId, taskId, newIsDone)
         dispatch(action)
-    }
-    const changeTasksTitle = (taskId: string, newTitle: string, toDoListId: string) => {
+    }, [dispatch])
+    const changeTasksTitle = useCallback((taskId: string, newTitle: string, toDoListId: string) => {
         ///////////// reducer
         const action = changeTaskTitleAC(toDoListId, taskId, newTitle)
         dispatch(action)
-    }
+    }, [dispatch])
 
-    const changeTodoListTitle = (newTitle: string, toDoListId: string) => {
+    const changeTodoListTitle = useCallback((newTitle: string, toDoListId: string) => {
         ///////////// reducer
         const action = ChangeTodoListTitleAC(toDoListId, newTitle)
         dispatch(action)
-    }
+    }, [dispatch])
     const addTodoList = useCallback((title: string) => {
         ///////////// reducer
         const action = AddTodoListAC(title)
         dispatch(action)
     }, [dispatch])
-
-    const changeTodoListFilter = (filter: FilterValuesType, toDoListId: string) => {
+    const changeTodoListFilter = useCallback((filter: FilterValuesType, toDoListId: string) => {
         ///////////// reducer
         const action = ChangeTodoListFilterAC(toDoListId, filter)
         dispatch(action)
-    }
-
-
-    const removeToDoList = (toDoListId: string) => {
+    }, [dispatch])
+    const removeToDoList = useCallback((toDoListId: string) => {
         ///////////// reducer
         const action = RemoveTodolistAC(toDoListId)
         dispatch(action)
-    }
+    }, [dispatch])
 
     const getFilteredTasksForRender = (tasksList: Array<TaskType>, filterValue: FilterValuesType) => {
         switch (filterValue) {
             case "Active":
-                return tasksList.filter(t => t.isDone === false)
+                return tasksList.filter(t => !t.isDone)
             case "Completed":
-                return tasksList.filter(t => t.isDone === true)
+                return tasksList.filter(t => t.isDone)
             default:
                 return tasksList
         }
     }
 
     const toDoListComponents = todolists.map(tl => {
+
         const tasksForRender: Array<TaskType> = getFilteredTasksForRender(tasks[tl.id], tl.filter)
+
         return (
             <Grid item>
                 <Paper elevation={3}>

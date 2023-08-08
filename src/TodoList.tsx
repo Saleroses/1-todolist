@@ -1,10 +1,11 @@
-import React, {ChangeEvent, FC, useRef, useState, KeyboardEvent, useCallback} from 'react';
+import React, {ChangeEvent, FC, useRef, useState, KeyboardEvent, useCallback, memo} from 'react';
 import {FilterValuesType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, Checkbox, IconButton, List, ListItem, Typography} from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import {Task} from "./task";
 
 
 type todolistPropsType = {
@@ -28,10 +29,7 @@ export type TaskType = {
     isDone: boolean
 }
 
-const  TodoList: FC<todolistPropsType> = (props) => {
-
-
-    //const addTaskInputRef = useRef<any>(null)
+const  TodoList: FC<todolistPropsType> = memo((props:todolistPropsType) => {
 
     let isAllTasksNotIsDone = true
     for (let i = 0; i < props.tasks.length; i++) {
@@ -43,38 +41,25 @@ const  TodoList: FC<todolistPropsType> = (props) => {
 
     const toDoClasses = isAllTasksNotIsDone ? "todolist-empty" : "todolist"
 
-
     const toDoListItems: Array<JSX.Element> = props.tasks.map((task) => {
 
-        const removeTaskHandler = () => {
-            props.removeTask(task.id, props.toDoListId)
+        const removeTask = (taskId: string) => {
+            props.removeTask(taskId, props.toDoListId)
         }
 
-        const changeTasksStatus = (e: ChangeEvent<HTMLInputElement>) =>
-            props.changeTasksStatus(task.id, e.currentTarget.checked, props.toDoListId)
+        const changeTasksStatus = (taskId: string, isDone: boolean) =>
+            props.changeTasksStatus(taskId, isDone, task.id)
 
-        const changeTasksTitle = (newTitle: string) => {
-            props.changeTasksTitle(task.id, newTitle, props.toDoListId)
+        const changeTasksTitle = (taskId: string, newTitle: string) => {
+            props.changeTasksTitle(taskId, newTitle, task.id)
         }
 
         return (
-            <ListItem key={task.id}
-                      divider
-                      disablePadding
-                      secondaryAction={<IconButton onClick={removeTaskHandler}>
-                                        <ClearIcon fontSize={"small"}/>
-                                        </IconButton>}
-            >
-                <Checkbox
-                    size={"small"}
-                    color={"secondary"}
-                    onChange={changeTasksStatus}
-                    checked={task.isDone}/>
-                <EditableSpan title={task.title}
-                              classes={task.isDone ? "task-done" : "task"}
-                              changeTitle={changeTasksTitle}/>
-
-            </ListItem>
+           <Task task={task}
+                 removeTask={removeTask}
+                 changeTasksStatus={changeTasksStatus}
+                 changeTasksTitle={changeTasksTitle}
+                 />
         )
     })
 
@@ -86,9 +71,9 @@ const  TodoList: FC<todolistPropsType> = (props) => {
         props.removeToDoList(props.toDoListId)
     }
 
-    const changeTodoListTitle = (newTitle: string) => {
+    const changeTodoListTitle = useCallback((newTitle: string) => {
         props.changeTodoListTitle(newTitle, props.toDoListId)
-    }
+    }, [props.changeTodoListTitle, props.toDoListId])
 
     return (
         <div className={toDoClasses}>
@@ -145,6 +130,6 @@ const  TodoList: FC<todolistPropsType> = (props) => {
             </div>
         </div>
     );
-};
+});
 
 export default TodoList;
