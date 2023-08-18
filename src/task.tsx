@@ -9,9 +9,6 @@ export type TaskPropsType = {
     removeTask: (taskId: string) => void
     changeTasksStatus: (taskId: string, newIsDone: boolean) => void
     changeTasksTitle: (taskId: string, newTitle: string) => void
-
-
-
 }
 
 export const Task = (props: TaskPropsType) => {
