@@ -22,6 +22,7 @@ export const Task = (props: TaskPropsType) => {
     }
 
     const changeTasksTitle = (newTitle: string) => {
+
         props.changeTasksTitle(props.task.id, newTitle)
     }
 

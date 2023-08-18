@@ -42,10 +42,6 @@ export type TaskStateType = {
 
 function AppWithRedux(): JSX.Element {
 
-    // const [toDoList, dispatchToDoList] = useReducer (todoListsReducer,[
-    //     {id: toDoListId_1, title: "What to learn", filter: "All"},
-    //     {id: toDoListId_2, title: "What to buy", filter: "All"},
-    // ])
     let todolists = useSelector <AppRootStateType, Array<ToDoListType>> (state => state.todolists)
     let tasks = useSelector <AppRootStateType, TaskStateType> (state => state.tasks)
     const dispatch = useDispatch()
@@ -77,19 +73,20 @@ function AppWithRedux(): JSX.Element {
         //  или так dispatchToTasks(removeTaskAC(taskId, toDoListId))
 
     }, [dispatch])
+
     const addTask = useCallback((title: string, toDoListId: string) => {
         ///////////// reducer
         const action = addTaskAC(title, toDoListId)
         dispatch(action)
     }, [dispatch])
 
-    const changeTasksStatus = useCallback((toDoListId: string, newIsDone: boolean, taskId: string) => {
+    const changeTasksStatus = useCallback(( taskId: string,newIsDone: boolean,  toDoListId: string) => {
         ///////////// reducer
         const action = changeTaskStatusAC(toDoListId, taskId, newIsDone)
         dispatch(action)
     }, [dispatch])
 
-    const changeTasksTitle = useCallback((toDoListId: string, taskId: string, newTitle: string) => {
+    const changeTasksTitle = useCallback(( taskId: string, newTitle: string, toDoListId: string) => {
         ///////////// reducer
         const action = changeTaskTitleAC(toDoListId, taskId, newTitle)
         dispatch(action)
@@ -100,16 +97,19 @@ function AppWithRedux(): JSX.Element {
         const action = ChangeTodoListTitleAC(toDoListId, newTitle)
         dispatch(action)
     }, [dispatch])
+
     const addTodoList = useCallback((title: string) => {
         ///////////// reducer
         const action = AddTodoListAC(title)
         dispatch(action)
     }, [dispatch])
+
     const changeTodoListFilter = useCallback((filter: FilterValuesType, toDoListId: string) => {
         ///////////// reducer
         const action = ChangeTodoListFilterAC(toDoListId, filter)
         dispatch(action)
     }, [dispatch])
+
     const removeToDoList = useCallback((toDoListId: string) => {
         ///////////// reducer
         const action = RemoveTodolistAC(toDoListId)
@@ -126,13 +126,13 @@ function AppWithRedux(): JSX.Element {
                 return tasksList
         }
     }
-
+        // .map(el => { return el
     const toDoListComponents = todolists.map(tl => {
 
         const tasksForRender: Array<TaskType> = getFilteredTasksForRender(tasks[tl.id], tl.filter)
 
         return (
-            <Grid item>
+            <Grid item key={tl.id}>
                 <Paper elevation={3}>
                     <TodoList
                         key={tl.id}

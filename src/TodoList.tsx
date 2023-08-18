@@ -16,7 +16,7 @@ type todolistPropsType = {
     removeTask: (taskId: string, toDoListId: string) => void
     changeTodoListFilter: (filter: FilterValuesType, toDoListId: string) => void
     addTask: (title: string, toDoListId: string) => void
-    changeTasksStatus: (toDoListId: string, isDone: boolean, taskId: string) => void
+    changeTasksStatus: (taskId: string , isDone: boolean,toDoListId: string ) => void
     toDoListId: string
     removeToDoList: (toDoListId: string) => void
     changeTasksTitle: (taskId: string, newTitle: string, toDoListId: string) => void
@@ -49,10 +49,10 @@ const  TodoList: FC<todolistPropsType> = memo((props:todolistPropsType) => {
         }
 
         const changeTasksStatus = (taskId: string, isDone: boolean) =>
-            props.changeTasksStatus(taskId, isDone, task.id)
+            props.changeTasksStatus(taskId, isDone, props.toDoListId)
 
         const changeTasksTitle = (taskId: string, newTitle: string) => {
-            props.changeTasksTitle(taskId, newTitle, task.id)
+            props.changeTasksTitle(taskId, newTitle, props.toDoListId)
         }
 
         return (
