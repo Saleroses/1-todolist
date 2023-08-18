@@ -14,23 +14,22 @@ export type TaskPropsType = {
 
 }
 
-export const Task = memo((props: TaskPropsType) => {
-
-    const removeTaskHandler = useCallback(() => {
+export const Task = (props: TaskPropsType) => {
+    const removeTaskHandler = () => {
         props.removeTask(props.task.id)
-    }, [props.removeTask, props.task.id]);
+    }
 
-    const changeTasksStatus = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const changeTasksStatus = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked
         props.changeTasksStatus(props.task.id, newIsDoneValue)
-    }, [props.changeTasksStatus, props.task.id]);
+    }
 
-    const changeTasksTitle = useCallback((newTitle: string) => {
+    const changeTasksTitle = (newTitle: string) => {
         props.changeTasksTitle(props.task.id, newTitle)
-    }, [props.changeTasksTitle, props.task.id])
+    }
 
     return (
-        <ListItem key={props.task.id}
+        <ListItem
                   divider
                   disablePadding
                   secondaryAction={<IconButton onClick={removeTaskHandler}>
@@ -48,4 +47,4 @@ export const Task = memo((props: TaskPropsType) => {
 
         </ListItem>
     );
-});
+};

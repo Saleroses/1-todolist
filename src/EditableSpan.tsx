@@ -7,7 +7,7 @@ type EditableSpanPropsType = {
     changeTitle: (newTitle: string) => void
 }
 
-export const EditableSpan: FC<EditableSpanPropsType> = memo(({title, classes, changeTitle}) => {
+export const EditableSpan: FC<EditableSpanPropsType> = ({title, classes, changeTitle}) => {
 
     const [isEditMode, setIsEditMode] = useState<boolean>(false)
     const [value, setValue] = useState<string>(title)
@@ -35,5 +35,5 @@ export const EditableSpan: FC<EditableSpanPropsType> = memo(({title, classes, ch
             {title}
             </span>
     );
-});
+};
 

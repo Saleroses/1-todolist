@@ -6,6 +6,7 @@ import {Button, Checkbox, IconButton, List, ListItem, Typography} from "@mui/mat
 import ClearIcon from '@mui/icons-material/Clear';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {Task} from "./task";
+import {tasksReducer} from "./reducers/tasks-reducer";
 
 
 type todolistPropsType = {
@@ -15,7 +16,7 @@ type todolistPropsType = {
     removeTask: (taskId: string, toDoListId: string) => void
     changeTodoListFilter: (filter: FilterValuesType, toDoListId: string) => void
     addTask: (title: string, toDoListId: string) => void
-    changeTasksStatus: (taskId: string, newIsDone: boolean, toDoListId: string) => void
+    changeTasksStatus: (toDoListId: string, isDone: boolean, taskId: string) => void
     toDoListId: string
     removeToDoList: (toDoListId: string) => void
     changeTasksTitle: (taskId: string, newTitle: string, toDoListId: string) => void
@@ -41,7 +42,7 @@ const  TodoList: FC<todolistPropsType> = memo((props:todolistPropsType) => {
 
     const toDoClasses = isAllTasksNotIsDone ? "todolist-empty" : "todolist"
 
-    const toDoListItems: Array<JSX.Element> = props.tasks.map((task) => {
+    const toDoListItems: Array<JSX.Element> = props.tasks?.map((task) => {
 
         const removeTask = (taskId: string) => {
             props.removeTask(taskId, props.toDoListId)
@@ -55,11 +56,12 @@ const  TodoList: FC<todolistPropsType> = memo((props:todolistPropsType) => {
         }
 
         return (
-           <Task task={task}
-                 removeTask={removeTask}
-                 changeTasksStatus={changeTasksStatus}
-                 changeTasksTitle={changeTasksTitle}
-                 />
+            <Task key={task.id}
+                  task={task}
+                  removeTask={removeTask}
+                  changeTasksStatus={changeTasksStatus}
+                  changeTasksTitle={changeTasksTitle}
+            />
         )
     })
 
